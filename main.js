@@ -253,3 +253,151 @@ function initHeroAnimation() {
     }, 200 + index * 150); // 200ms後から順番に表示
   });
 }
+
+// ============================================
+// 予約フォーム送信
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('reservationForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMessage = document.getElementById('formMessage');
+  
+  // ★★★ ここに自分のGAS WebアプリURLを貼り付け ★★★
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyP35DXfjnKyc21lLg1RU24_oFS579pUqJN3YtcnXjYz9gYNaqHxZcPFwDgL0QFs2ENbw/exec';
+  
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // ボタンを無効化
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
+      formMessage.style.display = 'none';
+      
+      // フォームデータを取得
+      const formData = new FormData(form);
+      
+      // GASに送信
+      fetch(GAS_URL, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.status === 'success') {
+          // 成功時
+          formMessage.textContent = '✓ 予約を受け付けました。確認メールをお送りしますのでご確認ください。';
+          formMessage.className = 'form-message success';
+          formMessage.style.display = 'block';
+          form.reset();
+        } else {
+          throw new Error(data.message);
+        }
+      })
+      .catch(error => {
+        // エラー時
+        formMessage.textContent = '⚠ 送信に失敗しました。もう一度お試しください。';
+        formMessage.className = 'form-message error';
+        formMessage.style.display = 'block';
+        console.error('Error:', error);
+      })
+      .finally(() => {
+        // ボタンを再有効化
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C5 2 2 5 3 9c1 3 4 4 7 3C8 14 4 12 3 9 2 5 5 2 7 1z" fill="#DDF0D8"/></svg>予約を送信する';
+      });
+    });
+  }
+});
+
+/**
+ * ★ 予約フォーム送信処理
+ */
+function initReservationForm() {
+  const form = document.getElementById('reservationForm');
+  if (!form) return;
+
+  // ★★★ ここにGASのウェブアプリURLを貼り付け ★★★
+  const GAS_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
+  // ↑ ステップ2-3でコピーしたURLに置き換えてください
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // ボタンとメッセージを取得
+    const submitBtn = form.querySelector('.form-submit-btn');
+    const loading = document.getElementById('formLoading');
+    const success = document.getElementById('formSuccess');
+    const error = document.getElementById('formError');
+
+    // フォームデータを取得
+    const formData = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      plan: document.getElementById('plan').value,
+      date: document.getElementById('date').value,
+      coupon: document.getElementById('coupon').value
+    };
+
+    // ローディング表示
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.6';
+    loading.style.display = 'block';
+    success.style.display = 'none';
+    error.style.display = 'none';
+
+    try {
+      // GASに送信
+      const response = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // 成功
+        success.style.display = 'block';
+        form.reset();
+        
+        // GTMイベント送信（オプション）
+        if (typeof window.dataLayer !== 'undefined') {
+          window.dataLayer.push({
+            event: 'reservation_complete',
+            plan: formData.plan
+          });
+        }
+      } else {
+        // エラー
+        error.style.display = 'block';
+        error.textContent = 'エラーが発生しました：' + (result.error || '不明なエラー');
+      }
+    } catch (err) {
+      // ネットワークエラー
+      error.style.display = 'block';
+      error.textContent = '送信に失敗しました。インターネット接続を確認してください。';
+      console.error('Form submission error:', err);
+    } finally {
+      // ローディング終了
+      loading.style.display = 'none';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+    }
+  });
+}
+
+// DOMContentLoadedに追加
+document.addEventListener('DOMContentLoaded', () => {
+  initCountdown();
+  initFaq();
+  initFadeIn();
+  initGtmEvents();
+  initButtonAnimations();
+  initCountUpNumbers();
+  initHeroAnimation();
+  initReservationForm(); // ← 追加
+});

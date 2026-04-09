@@ -1901,3 +1901,124 @@ a {
 }
 
 }
+
+/* ============================================
+   RESERVATION FORM
+   ============================================ */
+.reservation-form-section {
+  background: var(--beige-bright);
+  padding: var(--section-pad);
+}
+
+.reservation-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-serif-jp);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.required {
+  color: #C4632A;
+  margin-left: 4px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(196,168,130,0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--font-sans-jp);
+  background: var(--white);
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--green-mid);
+  box-shadow: 0 0 0 3px rgba(78,120,84,0.1);
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A4A4A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4E7854 0%, #3D6142 100%);
+  color: #DDF0D8;
+  padding: 16px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif-jp);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(61,97,66,0.42);
+}
+
+.form-submit-btn:hover {
+  background: linear-gradient(135deg, #3D6142 0%, #2E4A33 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(61,97,66,0.6);
+}
+
+.form-submit-btn:active {
+  transform: translateY(0);
+}
+
+.form-loading {
+  text-align: center;
+  padding: 16px;
+  font-size: 14px;
+  color: var(--green-mid);
+  font-family: var(--font-serif-jp);
+}
+
+.form-message {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  font-family: var(--font-serif-jp);
+  letter-spacing: 0.05em;
+}
+
+.form-success {
+  background: var(--green-pale);
+  color: var(--green-accent);
+  border: 1px solid var(--green-light);
+}
+
+.form-error {
+  background: #FDECEA;
+  color: #C4632A;
+  border: 1px solid #F5B5A8;
+}
