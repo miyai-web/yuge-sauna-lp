@@ -84,17 +84,13 @@ function initFaq() {
   });
 }
 
-/**
- * 10-3. スクロールフェードイン（IntersectionObserver）
- * ★ 改善版：より滑らかに
- */
 function initFadeIn() {
+  // 既存の fade-in 要素
   const targets = document.querySelectorAll('.fade-in');
   
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // 少し遅延を加えて順番に表示
         setTimeout(() => {
           entry.target.classList.add('is-visible');
         }, 100);
@@ -103,12 +99,28 @@ function initFadeIn() {
     });
   }, { 
     threshold: 0.1,
-    rootMargin: '-50px' // 50px早めに発火
+    rootMargin: '-50px'
   });
   
   targets.forEach(el => observer.observe(el));
+  
+  // OUR SPACES のカードアニメーション
+  const photoCards = document.querySelectorAll('.photo-card');
+  
+  const cardObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '-50px'
+  });
+  
+  photoCards.forEach(card => cardObserver.observe(card));
 }
-
 /**
  * 10-4. GTMイベント送信
  */
@@ -311,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 /**
- * ★ 予約フォーム送信処理
+ * ★ 予約フォーム送信処理（バリデーション付き）
  */
 function initReservationForm() {
   const form = document.getElementById('reservationForm');
@@ -319,10 +331,120 @@ function initReservationForm() {
 
   // ★★★ ここにGASのウェブアプリURLを貼り付け ★★★
   const GAS_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
-  // ↑ ステップ2-3でコピーしたURLに置き換えてください
 
+  // バリデーションルール
+  const validationRules = {
+    name: {
+      required: true,
+      message: 'お名前を入力してください'
+    },
+    email: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+      message: 'メールアドレスを正しく入力してください'
+    },
+    phone: {
+      required: true,
+      pattern: /^[\d-]+$/,
+      message: '電話番号を正しく入力してください'
+    },
+    plan: {
+      required: true,
+      message: 'プランを選択してください'
+    },
+    date: {
+      required: true,
+      message: '希望日時を選択してください'
+    }
+  };
+
+  // エラー表示関数
+  function showError(fieldId, message) {
+    const input = document.getElementById(fieldId);
+    const error = document.getElementById(fieldId + '-error');
+    
+    if (input && error) {
+      input.classList.add('error');
+      error.textContent = message;
+      error.classList.add('show');
+    }
+  }
+
+  // エラークリア関数
+  function clearError(fieldId) {
+    const input = document.getElementById(fieldId);
+    const error = document.getElementById(fieldId + '-error');
+    
+    if (input && error) {
+      input.classList.remove('error');
+      error.classList.remove('show');
+    }
+  }
+
+  // 全エラーをクリア
+  function clearAllErrors() {
+    Object.keys(validationRules).forEach(fieldId => {
+      clearError(fieldId);
+    });
+  }
+
+  // バリデーション実行
+  function validateForm() {
+    let isValid = true;
+    clearAllErrors();
+
+    Object.keys(validationRules).forEach(fieldId => {
+      const field = document.getElementById(fieldId);
+      const rule = validationRules[fieldId];
+      
+      if (!field) return;
+
+      const value = field.value.trim();
+
+      // 必須チェック
+      if (rule.required && !value) {
+        showError(fieldId, rule.message);
+        isValid = false;
+        return;
+      }
+
+      // パターンチェック
+      if (rule.pattern && value && !rule.pattern.test(value)) {
+        showError(fieldId, rule.message);
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  }
+
+  // 入力時にエラーをクリア
+  Object.keys(validationRules).forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (field) {
+      field.addEventListener('input', () => {
+        clearError(fieldId);
+      });
+      field.addEventListener('change', () => {
+        clearError(fieldId);
+      });
+    }
+  });
+
+  // フォーム送信
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // バリデーション
+    if (!validateForm()) {
+      // 最初のエラー箇所までスクロール
+      const firstError = document.querySelector('.form-input.error, .form-select.error');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        firstError.focus();
+      }
+      return;
+    }
 
     // ボタンとメッセージを取得
     const submitBtn = form.querySelector('.form-submit-btn');
@@ -400,4 +522,58 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountUpNumbers();
   initHeroAnimation();
   initReservationForm(); // ← 追加
+});
+
+/**
+ * ★ 予約ボタンからフォームへスムーズスクロール
+ */
+function initScrollToForm() {
+  const scrollButtons = document.querySelectorAll('.scroll-to-form');
+  
+  scrollButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault(); // デフォルトの動作を防ぐ
+      
+      // クリックされたボタンのプラン名を取得
+      const planName = this.dataset.plan;
+      
+      // フォームのプラン選択を自動設定
+      if (planName) {
+        const planSelect = document.getElementById('plan');
+        if (planSelect) {
+          planSelect.value = planName;
+        }
+      }
+      
+      // 予約フォームまでスムーズスクロール
+      const formSection = document.getElementById('reservation-form');
+      if (formSection) {
+        formSection.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // スクロール後、名前入力欄にフォーカス
+        setTimeout(() => {
+          const nameInput = document.getElementById('name');
+          if (nameInput) {
+            nameInput.focus();
+          }
+        }, 800);
+      }
+    });
+  });
+}
+
+// DOMContentLoadedに追加
+document.addEventListener('DOMContentLoaded', () => {
+  initCountdown();
+  initFaq();
+  initFadeIn();
+  initGtmEvents();
+  initButtonAnimations();
+  initCountUpNumbers();
+  initHeroAnimation();
+  initReservationForm();
+  initScrollToForm();        // ← 追加
 });
