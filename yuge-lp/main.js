@@ -76,12 +76,8 @@ function initFaq() {
   });
 }
 
-<<<<<<< HEAD
 // ===== 3. フェードイン =====
-=======
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 function initFadeIn() {
-  // 既存の fade-in 要素
   const targets = document.querySelectorAll('.fade-in');
   
   const observer = new IntersectionObserver(entries => {
@@ -100,10 +96,6 @@ function initFadeIn() {
   
   targets.forEach(el => observer.observe(el));
   
-<<<<<<< HEAD
-=======
-  // OUR SPACES のカードアニメーション
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   const photoCards = document.querySelectorAll('.photo-card');
   
   const cardObserver = new IntersectionObserver(entries => {
@@ -120,14 +112,8 @@ function initFadeIn() {
   
   photoCards.forEach(card => cardObserver.observe(card));
 }
-<<<<<<< HEAD
 
 // ===== 4. GTMイベント =====
-=======
-/**
- * 10-4. GTMイベント送信
- */
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 function initGtmEvents() {
   const ctaButtons = document.querySelectorAll('[data-gtm-event]');
   ctaButtons.forEach(btn => {
@@ -232,7 +218,6 @@ function initHeroAnimation() {
   });
 }
 
-<<<<<<< HEAD
 // ===== 8. スクロール =====
 function initScrollToForm() {
   const scrollButtons = document.querySelectorAll('.scroll-to-form');
@@ -269,72 +254,10 @@ function initScrollToForm() {
 }
 
 // ===== 9. 予約フォーム =====
-=======
-// ============================================
-// 予約フォーム送信
-// ============================================
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.getElementById('reservationForm');
-  const submitBtn = document.getElementById('submitBtn');
-  const formMessage = document.getElementById('formMessage');
-  
-  // ★★★ ここに自分のGAS WebアプリURLを貼り付け ★★★
-  const GAS_URL = 'https://script.google.com/macros/s/AKfycbyP35DXfjnKyc21lLg1RU24_oFS579pUqJN3YtcnXjYz9gYNaqHxZcPFwDgL0QFs2ENbw/exec';
-  
-  if (form) {
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // ボタンを無効化
-      submitBtn.disabled = true;
-      submitBtn.textContent = '送信中...';
-      formMessage.style.display = 'none';
-      
-      // フォームデータを取得
-      const formData = new FormData(form);
-      
-      // GASに送信
-      fetch(GAS_URL, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.status === 'success') {
-          // 成功時
-          formMessage.textContent = '✓ 予約を受け付けました。確認メールをお送りしますのでご確認ください。';
-          formMessage.className = 'form-message success';
-          formMessage.style.display = 'block';
-          form.reset();
-        } else {
-          throw new Error(data.message);
-        }
-      })
-      .catch(error => {
-        // エラー時
-        formMessage.textContent = '⚠ 送信に失敗しました。もう一度お試しください。';
-        formMessage.className = 'form-message error';
-        formMessage.style.display = 'block';
-        console.error('Error:', error);
-      })
-      .finally(() => {
-        // ボタンを再有効化
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C5 2 2 5 3 9c1 3 4 4 7 3C8 14 4 12 3 9 2 5 5 2 7 1z" fill="#DDF0D8"/></svg>予約を送信する';
-      });
-    });
-  }
-});
-
-/**
- * ★ 予約フォーム送信処理（バリデーション付き）
- */
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 function initReservationForm() {
   const form = document.getElementById('reservationForm');
   if (!form) return;
 
-<<<<<<< HEAD
   
 
   // ★営業時間チェック機能
@@ -376,32 +299,11 @@ function initReservationForm() {
       maxLength: 13,
       pattern: /^0\d{1,4}-?\d{1,4}-?\d{4}$/,
       message: '電話番号を正しく入力してください（例: 090-1234-5678）'
-=======
-  // ★★★ ここにGASのウェブアプリURLを貼り付け ★★★
-  const GAS_URL = 'https://script.google.com/macros/s/XXXXXXXX/exec';
-
-  // バリデーションルール
-  const validationRules = {
-    name: {
-      required: true,
-      message: 'お名前を入力してください'
-    },
-    email: {
-      required: true,
-      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-      message: 'メールアドレスを正しく入力してください'
-    },
-    phone: {
-      required: true,
-      pattern: /^[\d-]+$/,
-      message: '電話番号を正しく入力してください'
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
     },
     plan: {
       required: true,
       message: 'プランを選択してください'
     },
-<<<<<<< HEAD
     coupon: {
       pattern: /^[A-Z0-9]*$/,
       maxLength: 20,
@@ -409,15 +311,6 @@ function initReservationForm() {
     }
   };
 
-=======
-    date: {
-      required: true,
-      message: '希望日時を選択してください'
-    }
-  };
-
-  // エラー表示関数
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   function showError(fieldId, message) {
     const input = document.getElementById(fieldId);
     const error = document.getElementById(fieldId + '-error');
@@ -429,10 +322,6 @@ function initReservationForm() {
     }
   }
 
-<<<<<<< HEAD
-=======
-  // エラークリア関数
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   function clearError(fieldId) {
     const input = document.getElementById(fieldId);
     const error = document.getElementById(fieldId + '-error');
@@ -443,20 +332,12 @@ function initReservationForm() {
     }
   }
 
-<<<<<<< HEAD
-=======
-  // 全エラーをクリア
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   function clearAllErrors() {
     Object.keys(validationRules).forEach(fieldId => {
       clearError(fieldId);
     });
   }
 
-<<<<<<< HEAD
-=======
-  // バリデーション実行
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   function validateForm() {
     let isValid = true;
     clearAllErrors();
@@ -476,7 +357,6 @@ function initReservationForm() {
         return;
       }
 
-<<<<<<< HEAD
       // 最小文字数チェック
       if (rule.minLength && value && value.length < rule.minLength) {
         showError(fieldId, rule.message);
@@ -491,13 +371,10 @@ function initReservationForm() {
         return;
       }
 
-=======
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
       // パターンチェック
       if (rule.pattern && value && !rule.pattern.test(value)) {
         showError(fieldId, rule.message);
         isValid = false;
-<<<<<<< HEAD
         return;
       }
     });
@@ -517,15 +394,6 @@ function initReservationForm() {
     return isValid;
   }
 
-=======
-      }
-    });
-
-    return isValid;
-  }
-
-  // 入力時にエラーをクリア
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   Object.keys(validationRules).forEach(fieldId => {
     const field = document.getElementById(fieldId);
     if (field) {
@@ -538,20 +406,10 @@ function initReservationForm() {
     }
   });
 
-<<<<<<< HEAD
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
-=======
-  // フォーム送信
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    // バリデーション
-    if (!validateForm()) {
-      // 最初のエラー箇所までスクロール
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
       const firstError = document.querySelector('.form-input.error, .form-select.error');
       if (firstError) {
         firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -560,16 +418,11 @@ function initReservationForm() {
       return;
     }
 
-<<<<<<< HEAD
-=======
-    // ボタンとメッセージを取得
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
     const submitBtn = form.querySelector('.form-submit-btn');
     const loading = document.getElementById('formLoading');
     const success = document.getElementById('formSuccess');
     const error = document.getElementById('formError');
 
-<<<<<<< HEAD
     // 日付と時間を統合
     const reservationDate = document.getElementById('reservation-date');
     const reservationTime = document.getElementById('reservation-time');
@@ -577,28 +430,17 @@ function initReservationForm() {
       ? `${reservationDate.value}T${reservationTime.value}`
       : document.getElementById('date').value;
 
-=======
-    // フォームデータを取得
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
     const formData = {
       name: document.getElementById('name').value,
       email: document.getElementById('email').value,
       phone: document.getElementById('phone').value,
       plan: document.getElementById('plan').value,
-<<<<<<< HEAD
       date: dateValue,
       coupon: document.getElementById('coupon').value
     };
     
     console.log('送信データ:', formData);
 
-=======
-      date: document.getElementById('date').value,
-      coupon: document.getElementById('coupon').value
-    };
-
-    // ローディング表示
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.6';
     loading.style.display = 'block';
@@ -606,22 +448,15 @@ function initReservationForm() {
     error.style.display = 'none';
 
     try {
-<<<<<<< HEAD
       await fetch(GAS_URL, {
         method: 'POST',
         mode: 'no-cors',
-=======
-      // GASに送信
-      const response = await fetch(GAS_URL, {
-        method: 'POST',
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData)
       });
 
-<<<<<<< HEAD
       // no-corsモードでは応答が取得できないため、送信成功と仮定
       success.style.display = 'block';
       form.reset();
@@ -636,37 +471,10 @@ function initReservationForm() {
       console.log('送信完了');
       
     } catch (err) {
-=======
-      const result = await response.json();
-
-      if (result.success) {
-        // 成功
-        success.style.display = 'block';
-        form.reset();
-        
-        // GTMイベント送信（オプション）
-        if (typeof window.dataLayer !== 'undefined') {
-          window.dataLayer.push({
-            event: 'reservation_complete',
-            plan: formData.plan
-          });
-        }
-      } else {
-        // エラー
-        error.style.display = 'block';
-        error.textContent = 'エラーが発生しました：' + (result.error || '不明なエラー');
-      }
-    } catch (err) {
-      // ネットワークエラー
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
       error.style.display = 'block';
       error.textContent = '送信に失敗しました。インターネット接続を確認してください。';
       console.error('Form submission error:', err);
     } finally {
-<<<<<<< HEAD
-=======
-      // ローディング終了
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
       loading.style.display = 'none';
       submitBtn.disabled = false;
       submitBtn.style.opacity = '1';
@@ -674,68 +482,10 @@ function initReservationForm() {
   });
 }
 
-<<<<<<< HEAD
 // ===== 初期化 =====
 document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM読み込み完了');
   
-=======
-// DOMContentLoadedに追加
-document.addEventListener('DOMContentLoaded', () => {
-  initCountdown();
-  initFaq();
-  initFadeIn();
-  initGtmEvents();
-  initButtonAnimations();
-  initCountUpNumbers();
-  initHeroAnimation();
-  initReservationForm(); // ← 追加
-});
-
-/**
- * ★ 予約ボタンからフォームへスムーズスクロール
- */
-function initScrollToForm() {
-  const scrollButtons = document.querySelectorAll('.scroll-to-form');
-  
-  scrollButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
-      e.preventDefault(); // デフォルトの動作を防ぐ
-      
-      // クリックされたボタンのプラン名を取得
-      const planName = this.dataset.plan;
-      
-      // フォームのプラン選択を自動設定
-      if (planName) {
-        const planSelect = document.getElementById('plan');
-        if (planSelect) {
-          planSelect.value = planName;
-        }
-      }
-      
-      // 予約フォームまでスムーズスクロール
-      const formSection = document.getElementById('reservation-form');
-      if (formSection) {
-        formSection.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-        
-        // スクロール後、名前入力欄にフォーカス
-        setTimeout(() => {
-          const nameInput = document.getElementById('name');
-          if (nameInput) {
-            nameInput.focus();
-          }
-        }, 800);
-      }
-    });
-  });
-}
-
-// DOMContentLoadedに追加
-document.addEventListener('DOMContentLoaded', () => {
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   initCountdown();
   initFaq();
   initFadeIn();
@@ -744,11 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCountUpNumbers();
   initHeroAnimation();
   initReservationForm();
-<<<<<<< HEAD
   initScrollToForm();
   
   console.log('全ての初期化完了');
-=======
-  initScrollToForm();        // ← 追加
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 });
