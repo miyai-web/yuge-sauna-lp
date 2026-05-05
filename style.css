@@ -27,9 +27,9 @@
   --green-dark:   #253D29;
 
   /* タイポグラフィ */
-  --font-serif-jp: 'Noto Serif JP', serif;
-  --font-sans-jp:  'Noto Sans JP', sans-serif;
-  --font-en:       'Cormorant Garamond', serif;
+--font-serif-jp: 'Noto Sans JP', sans-serif;
+--font-sans-jp:  'Noto Sans JP', sans-serif;
+--font-en:       'Lato', sans-serif;
 
   /* スペーシング */
   --section-pad: 48px 0;
@@ -179,18 +179,31 @@ a {
 }
 
 .hero-logo {
-  position: absolute;
-  top: 24px;
-  left: 22px;
+  /* 絶対配置を削除して中央配置に変更 */
+  position: relative;
   z-index: 5;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  margin-bottom: 0px; /* キャッチコピーとの間隔 */
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInDown 0.8s ease 0.6s forwards; /* 10周年記念の後に表示 */
+  padding-top: 60px;
+}
+
+/* フェードインアニメーション */
+@keyframes fadeInDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-logo-kanji {
   font-family: var(--font-serif-jp);
-  font-size: 20px;
+  font-size: 32px;
   font-weight: 300;
   color: var(--beige-light);
   letter-spacing: 0.14em;
@@ -204,43 +217,64 @@ a {
 
 .hero-logo-roman {
   font-family: var(--font-en);
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 300;
   color: var(--beige);
   letter-spacing: 0.22em;
   line-height: 1.4;
 }
 
-.hero-anniv {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+.hero-anniv-large {
+  position: relative;
   z-index: 5;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(122,166,114,0.65);
-  background: rgba(61,97,66,0.38);
-  backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 28px;
+  animation: fadeInScale 1s ease-out;
 }
 
-.hero-anniv-num {
-  font-family: var;
-  font-size: 22px;
-  font-weight: 300;
-  color: #C2DABD;
+/* 横並びテキストバッジ */
+.hero-anniv-text {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;                    /* ← 6px → 8px に変更（少し広く） */
+  background: transparent;      /* ← 変更：背景を透明に */
+  backdrop-filter: none;        /* ← 変更：ぼかし効果を削除 */
+  border: none;                 /* ← 変更：外枠を削除 */
+  border-radius: 0;             /* ← 変更：角丸を削除 */
+  padding: 0;                   /* ← 変更：余白を削除 */
+  margin-bottom: 20px;
+  box-shadow: none;             /* ← 変更：影を削除 */
+  animation: fadeInScale 1s ease-out;
+}
+
+.hero-anniv-number {
+  font-family: var(--font-en);
+  font-size: 42px;
+  font-weight: 500;
+  color:#FFE082;
   line-height: 1;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  letter-spacing: 0.05em;
 }
 
-.hero-anniv-label {
-  font-size: 7px;
-  color: rgba(194,218,189,0.8);
-  letter-spacing: 0.08em;
-  margin-top: 1px;
+.hero-anniv-text-label {
+  font-family: var(--font-serif-jp);
+  font-size: 42px;              /* ← 変更：18px → 42px（10と同じサイズ） */
+  font-weight: 500;             /* ← 変更：400 → 500（10と同じ太さ） */
+  color:#FFE082;               /* ← 変更：10と同じ色 */
+  letter-spacing: 0.12em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);  /* ← 変更：10と同じ影 */
+}
+
+/* フェードイン＆拡大アニメーション */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .hero-center {
@@ -251,6 +285,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 60px;
 }
 
 .hero-location-badge {
@@ -260,13 +295,16 @@ a {
   background: rgba(61,97,66,0.55);
   border: 1px solid rgba(122,166,114,0.55);
   border-radius: 20px;
-  padding: 5px 13px;
-  margin-bottom: 16px;
+  padding: 7px 15px;
+  margin-bottom: 24px; /* ロゴとの間隔 */
+  position: relative; /* ★追加 */
+  top: -40px; /* ★追加：上に30px移動（数値を大きくするとさらに上に） */
   backdrop-filter: blur(4px);
   font-size: 11px;
   font-weight: 300;
   color: #C8E0C3;
   letter-spacing: 0.08em;
+  line-height: 1.4;
 }
 
 .hero-location-dot {
@@ -1036,7 +1074,7 @@ a {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 16px 0;
+  padding: 18px 0;
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -1372,11 +1410,45 @@ a {
 }
 
 .footer-sns-row {
-  font-family: var(--font-en);
-  font-size: 11px;
-  color: var(--green-light);
-  letter-spacing: 0.12em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+
+.footer-sns-link {
+  color: var(--green-light);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 4px;
+}
+
+.footer-sns-link:hover {
+  color: #C2DABD;
+  transform: translateY(-2px);
+}
+
+.footer-sns-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.footer-sns-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+  border-radius: 6px; 
+  object-fit: cover;
+}
+
+.footer-sns-separator {
+  color: var(--green-light);
+  font-size: 12px;
+  opacity: 0.5;
+}
+
 
 .footer-divider {
   height: 1px;
@@ -1420,7 +1492,9 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 16px;
+  margin-top: 20px;      
   margin-bottom: 16px;
+  padding-top: 12px;       
 }
 
 .footer-nav a {
@@ -1429,6 +1503,8 @@ a {
   text-decoration: none;
   letter-spacing: 0.04em;
   font-weight: 300;
+  padding: 8px 0;          /* ← 追加：上下に余白 */
+  display: inline-block;   /* ← 追加：余白を有効にする */
 }
 
 .footer-copy {
@@ -1458,7 +1534,7 @@ a {
 }
 
 .sticky-tab {
-  min-height: 48px;padding: 10px 8px;
+  min-height: 54px;padding: 10px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1535,25 +1611,11 @@ a {
     padding-bottom: 60px;
   }
 
-  /* セクション内の横幅を広げる */
-  .section-inner {
-    padding: 0 48px;
-  }
+  .section-inner { padding: 0 48px; }
+  .hero-center { padding: 0 48px; }
+  .hero-main-title { font-size: 38px; }
+  .btn-hero { max-width: 400px; }
 
-  /* HEROセクション */
-  .hero-center {
-    padding: 0 48px;
-  }
-
-  .hero-main-title {
-    font-size: 38px;
-  }
-
-  .btn-hero {
-    max-width: 400px;
-  }
-
-  /* TEMP SPECS - 2カラム */
   .temp-list {
     padding: 0 48px;
     display: grid;
@@ -1561,30 +1623,24 @@ a {
     gap: 12px;
   }
 
-  /* PLANS - カードを横並び準備 */
   .plans-section .section-inner {
     display: flex;
     flex-direction: column;
   }
 
-  .plan-card {
-    max-width: 100%;
-  }
+  .plan-card { max-width: 100%; }
 
-  /* FEATURES - 3カラム */
   .feature-grid {
     padding: 0 48px;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
   }
 
-  /* STATS - 4カラム */
   .stats-grid {
     margin: 22px 48px 0;
     grid-template-columns: repeat(4, 1fr);
   }
 
-  /* VOICE - 横並び */
   .voice-section .section-inner {
     padding: 0 48px;
     display: grid;
@@ -1594,67 +1650,30 @@ a {
 
   .voice-section .section-label,
   .voice-section .section-title,
-  .voice-section .section-sub {
-    grid-column: 1 / -1;
-  }
+  .voice-section .section-sub { grid-column: 1 / -1; }
 
-  /* FAQ - 2カラム */
   .faq-list {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0 24px;
   }
 
-  /* FOOTER */
-  .footer {
-    padding: 48px 48px 36px;
-  }
+  .footer { padding: 48px 48px 36px; }
+  .footer-top { grid-template-columns: auto 1fr auto; gap: 24px; }
+  .sticky-bottom { max-width: 768px; }
 
-  .footer-top {
-    grid-template-columns: auto 1fr auto;
-    gap: 24px;
-  }
-
-  /* STICKY BOTTOM */
-  .sticky-bottom {
-    max-width: 768px;
-  }
-
-.campaign-strip {
+  .campaign-strip {
     padding: 14px 48px;
     flex-direction: column;
     align-items: center;
     text-align: center;
     gap: 12px;
   }
-  
-  .campaign-strip > div:first-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .campaign-strip-text {
-    font-size: 14px;
-  }
-  
-  .campaign-strip-period {
-    font-size: 10px;
-  }
-  
-  .campaign-strip-pill {
-    font-size: 12px;
-    padding: 6px 16px;
-  }
 
-  .plans-section .section-inner > div:first-of-type > div:last-child {
-    justify-content: center;
-    max-width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  .campaign-strip-text { font-size: 14px; }
+  .campaign-strip-period { font-size: 10px; }
+  .campaign-strip-pill { font-size: 12px; padding: 6px 16px; }
 
-  /* プランカード内のボタン幅調整 */
   .plan-cta-primary {
     max-width: 30%;
     margin-left: auto;
@@ -1667,149 +1686,30 @@ a {
     flex-direction: row-reverse;
     justify-content: flex-end;
   }
-  
+
   .plan-reassure svg {
     margin-top: 3px;
     flex-shrink: 0;
     margin-left: 300px;
     margin-right: 0;
   }
-  
-  .plan-reassure-text {
-    text-align: left;
-  }
 
+  .plan-reassure-text { text-align: left; }
+
+  .plan-price-new { font-size: 30px; }
+}
 
 /* ============================================
    PC対応（1024px〜）
    ============================================ */
 @media (min-width: 1024px) {
-  body {
-    max-width: 1200px;
-  }
-
-  .section-inner {
-    padding: 0 80px;
-  }
-
-  /* HERO */
-  .hero-center {
-    padding: 0 80px;
-  }
-
-  .hero-main-title {
-    font-size: 46px;
-  }
-
-  .hero-chips {
-    flex-direction: row;
-    gap: 12px;
-  }
-
-  .hero-chip {
-    flex: 1;
-  }
-
-  .campaign-strip {
-    padding: 14px 48px;
-    align-items: center;
-    text-align: center;
-    gap: 12px;
-  }
-
-  /* TEMP SPECS - 3カラム */
-  .temp-list {
-    padding: 0 80px;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-  }
-
-  /* PLANS - 3カラム */
-  .plans-section .section-inner {
-    padding: 0 80px;
-    display: block;
-  }
-
-  .plans-section > div:last-of-type {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 0 80px;
-  }
-
-  .plan-card {
-    margin-bottom: 0;
-  }
-
-  .plan-reassure {
-    grid-column: 1 / -1;
-    margin: 20px 0 0;
-  }
-
-  /* FEATURES - 3カラム（変更なし） */
-  .feature-grid {
-    padding: 0 80px;
-    gap: 20px;
-  }
-
-  /* PHOTO CARDS - スクロールを広く */
-  .photo-cards-scroll .photo-card:first-child {
-    margin-left: 80px;
-  }
-
-  .photo-cards-scroll .photo-card:last-child {
-    margin-right: 80px;
-  }
-
-  /* STATS - 4カラム（変更なし） */
-  .stats-grid {
-    margin: 22px 80px 0;
-  }
-
-  /* VOICE - 3カラム（変更なし） */
-  .voice-section .section-inner {
-    padding: 0 80px;
-  }
-
-  /* FAQ - 2カラム（変更なし） */
-  .faq-list {
-    gap: 0 40px;
-  }
-
-  /* ACCESS - 情報とマップを横並び */
-  .access-info-block {
-    padding: 0 80px;
-  }
-
-  .access-map-wrap {
-    margin: 14px 80px 0;
-  }
-
-  /* FINAL CTA */
-  .final-cta {
-    padding: 64px 80px;
-  }
-
-  .final-cta-title {
-    font-size: 26px;
-  }
-
-  .btn-final-primary,
-  .btn-final-secondary {
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* FOOTER */
-  .footer {
-    padding: 56px 80px 40px;
-  }
-
-  /* STICKY BOTTOM */
-  .sticky-bottom {
-    max-width: 1200px;
-  }
+  body { max-width: 1200px; }
+  .section-inner { padding: 0 80px; }
+  .access-map-wrap iframe { height: 400px; }
+  .hero-center { padding: 0 80px; }
+  .hero-main-title { font-size: 46px; }
+  .hero-chips { flex-direction: row; gap: 12px; }
+  .hero-chip { flex: 1; }
 
   .campaign-strip {
     padding: 16px 80px;
@@ -1818,34 +1718,62 @@ a {
     text-align: center;
     gap: 14px;
   }
-  
-  .campaign-strip > div:first-child {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .campaign-strip-text {
-    font-size: 15px;
-  }
-  
-  .campaign-strip-period {
-    font-size: 11px;
-  }
-  
-  .campaign-strip-pill {
-    font-size: 13px;
-    padding: 7px 18px;
+  .campaign-strip-text { font-size: 18px; }
+  .campaign-strip-period { font-size: 13px; }
+  .campaign-strip-pill { font-size: 15px; padding: 7px 18px; }
+
+  .temp-list {
+    padding: 0 80px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
-  .plans-section .section-inner > div:first-of-type > div:last-child {
-    justify-content: center;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
+  .plans-section .section-inner { padding: 0 80px; display: block; }
+
+  .plan-card { margin-bottom: 0; }
+
+  .plan-reassure {
+    grid-column: 1 / -1;
+    margin: 20px 0 0;
+    flex-direction: row; /* ★通常の並びに戻す */
+    align-items: flex-start;
+    padding: 16px 100px;
   }
 
-  /* プランカード内のボタン幅調整 */
+  .plan-reassure svg {
+    margin-left: 0; /* ★リセット */
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+  }
+
+   .plan-reassure-text {
+    font-size: 30px !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.05em !important;
+    line-height: 1.7 !important;
+    color: var(--green-accent) !important;
+  }
+
+  .feature-grid { padding: 0 80px; gap: 20px; }
+
+  .photo-cards-scroll .photo-card:first-child { margin-left: 80px; }
+  .photo-cards-scroll .photo-card:last-child { margin-right: 80px; }
+
+  .stats-grid { margin: 22px 80px 0; }
+  .voice-section .section-inner { padding: 0 80px; }
+  .faq-list { gap: 0 40px; }
+  .access-info-block { padding: 0 80px; }
+  .access-map-wrap { margin: 14px 80px 0; }
+
+  .final-cta { padding: 64px 80px; }
+  .final-cta-title { font-size: 26px; }
+  .btn-final-primary,
+  .btn-final-secondary { max-width: 500px; margin-left: auto; margin-right: auto; }
+
+  .footer { padding: 56px 80px 40px; }
+  .sticky-bottom { max-width: 1200px; }
+
   .plan-cta-primary {
     max-width: 30%;
     margin-left: auto;
@@ -1853,23 +1781,100 @@ a {
     font-size: 20px;
   }
 
-  .plan-reassure {
-    align-items: flex-start;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
+  .plan-benefits-box {
+    max-width: 1200px;
+    padding: 24px 28px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .plan-benefits-grid {
+     gap: 20px; 
+     }
+
+  .plan-benefits-item {
+    font-size: 17px !important;
+    padding: 16px 24px !important;
+    gap: 14px !important;
+    min-height: 80px;
+    white-space: nowrap !important;
+  }
+
+  .plan-benefits-check {
+    font-size: 22px !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+  }
+
+  .plan-benefits-item:nth-child(3),
+  .plan-benefits-item:nth-child(4) {
+    font-size: 15px !important;
+    padding: 16px 20px !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  .plan-benefits-item:nth-child(3) .plan-benefits-check,
+  .plan-benefits-item:nth-child(4) .plan-benefits-check {
+    font-size: 20px !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+  }
+
+  .plan-price-new { font-size: 32px; }
+
+  .recommend-banner {
+    font-size: 18px;
+    padding: 10px 14px;
+  }
+
+.plan-label {
+    font-size: 13px;
   }
   
-  .plan-reassure svg {
-    margin-top: 3px;
-    flex-shrink: 0;
-    margin-left: 300px;
-    margin-right: 0;
+  .plan-name {
+    font-size: 20px;
   }
-  
-  .plan-reassure-text {
-    text-align: left;
+
+.plan-feature-list li {
+    font-size: 16px;
+    padding: 6px 0;
   }
+
+
+  /* LINE特典 */
+
+  .footer-line-label {
+    font-size: 18px !important;
+    letter-spacing: 0.1em;
+  }
+
+  .footer-line-benefits {
+    padding: 16px 24px;
+  }
+
+  .footer-line-benefits-label {
+    font-size: 30px !important;
+    font-weight: 500 !important;
+    margin-bottom: 12px;
+  }
+
+  .footer-line-benefits-item {
+    font-size: 20px !important;
+    gap: 10px;
+  }
+
+  .photo-cards-hint {
+    display: none;
+  }
+
 }
+
+
+
+
 
 /* ============================================
    価格表示フォントの統一
@@ -1900,4 +1905,534 @@ a {
   }
 }
 
+
+
+/* ============================================
+   RESERVATION FORM
+   ============================================ */
+.reservation-form-section {
+  background: var(--beige-bright);
+  padding: var(--section-pad);
+}
+
+.reservation-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-serif-jp);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+
+.required {
+  color: #C4632A;
+  margin-left: 4px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid rgba(196,168,130,0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: var(--font-sans-jp);
+  background: var(--white);
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--green-mid);
+  box-shadow: 0 0 0 3px rgba(78,120,84,0.1);
+}
+
+.form-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%234A4A4A' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+.form-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #4E7854 0%, #3D6142 100%);
+  color: #DDF0D8;
+  padding: 16px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif-jp);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 18px rgba(61,97,66,0.42);
+}
+
+.form-submit-btn:hover {
+  background: linear-gradient(135deg, #3D6142 0%, #2E4A33 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(61,97,66,0.6);
+}
+
+.form-submit-btn:active {
+  transform: translateY(0);
+}
+
+.form-loading {
+  text-align: center;
+  padding: 16px;
+  font-size: 14px;
+  color: var(--green-mid);
+  font-family: var(--font-serif-jp);
+}
+
+.form-message {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  font-family: var(--font-serif-jp);
+  letter-spacing: 0.05em;
+}
+
+.form-success {
+  background: var(--green-pale);
+  color: var(--green-accent);
+  border: 1px solid var(--green-light);
+}
+
+.form-error {
+  background: #FDECEA;
+  color: #C4632A;
+  border: 1px solid #F5B5A8;
+}
+
+/* エラーメッセージのスタイル */
+.form-error {
+  display: none;
+  color: #C4632A;
+  font-size: 11px;
+  font-weight: 300;
+  margin-top: 6px;
+  padding-left: 4px;
+  font-family: var(--font-sans-jp);
+  letter-spacing: 0.03em;
+}
+
+.form-error::before {
+  content: '⚠ ';
+  margin-right: 4px;
+}
+
+/* エラー状態の入力欄 */
+.form-input.error,
+.form-select.error {
+  border-color: #C4632A;
+  background: #FFF5F0;
+}
+
+.form-input.error:focus,
+.form-select.error:focus {
+  border-color: #C4632A;
+  box-shadow: 0 0 0 3px rgba(196,99,42,0.15);
+}
+
+/* エラー表示時のアニメーション */
+.form-error.show {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   タップ時の選択範囲を角丸に統一
+   ============================================ */
+
+/* すべてのボタンとリンクに適用 */
+a, button, 
+.btn-hero,
+.plan-cta-primary,
+.btn-final-primary,
+.btn-final-secondary,
+.footer-line-btn,
+.sticky-tab,
+.form-submit-btn {
+  /* タップ時のハイライト色を透明に（iOS Safari用） */
+  -webkit-tap-highlight-color: transparent;
+  
+  /* 選択範囲を角丸に */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ボタン類：タップ時のカスタムハイライト */
+.btn-hero::before,
+.plan-cta-primary::before,
+.btn-final-primary::before,
+.sticky-tab-primary::before,
+.form-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit; /* ← 親要素の角丸を継承 */
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* アクティブ時（タップ時）にハイライト表示 */
+.btn-hero:active::before,
+.plan-cta-primary:active::before,
+.btn-final-primary:active::before,
+.sticky-tab-primary:active::before,
+.form-submit-btn:active::before {
+  opacity: 1;
+}
+
+/* 既存のボタンに position: relative を追加 */
+.btn-hero,
+.plan-cta-primary,
+.btn-final-primary,
+.sticky-tab-primary,
+.form-submit-btn {
+  position: relative;
+  overflow: hidden; /* ← はみ出しを防ぐ */
+}
+
+/* フォーカス時のアウトラインも角丸に */
+.btn-hero:focus-visible,
+.plan-cta-primary:focus-visible,
+.btn-final-primary:focus-visible,
+.sticky-tab-primary:focus-visible,
+.form-submit-btn:focus-visible {
+  outline: 2px solid var(--green-light);
+  outline-offset: 2px;
+  border-radius: var(--radius-pill); /* ← 角丸を維持 */
+}
+
+/* ============================================
+   インラインスタイルをクラス化
+   ============================================ */
+
+/* ============================================
+   特典ボックス（目立たせる修正版）
+   ============================================ */
+
+.plan-benefits-box {
+  background: linear-gradient(135deg, #F3F8F1 0%, #EBF2E8 100%);
+  border: 3px solid var(--green-mid);
+  border-radius: 16px;
+  padding: 20px 12px;
+  margin: 24px 0;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(61,97,66,0.15);
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.6s ease backwards;
+}
+
+/* キラキラ効果 */
+.plan-benefits-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+  animation: shine 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0%, 100% { transform: translateX(-100%) translateY(-100%); }
+  50% { transform: translateX(100%) translateY(100%); }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.plan-benefits-label {
+  font-family: var(--font-en);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--green-accent);
+  letter-spacing: 0.3em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+}
+
+.plan-benefits-title {
+  font-family: var(--font-serif-jp);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--green-dark);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.plan-benefits-count {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--green-accent);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.plan-benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.plan-benefits-item {
+  font-size: 14px; /* ★13px→14px */
+  font-weight: 600; /* ★500→600（太く） */
+  color: var(--charcoal);
+  display: flex;
+  align-items: center;
+  gap: 10px; /* ★8px→10px */
+  background: linear-gradient(135deg, #FFFFFF 0%, #F8FCF6 100%); /* ★グラデーション背景 */
+  padding: 12px 14px; /* ★8px→12px（高さを出す） */
+  border-radius: 10px; /* ★8px→10px */
+  border: 2px solid rgba(127,166,114,0.3); /* ★枠線を追加 */
+  box-shadow: 0 2px 8px rgba(61,97,66,0.12); /* ★影を追加 */
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* ★左側のアクセントライン */
+.plan-benefits-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--green-light) 0%, var(--green-mid) 100%);
+  border-radius: 10px 0 0 10px;
+}
+
+.plan-benefits-item:hover {
+  transform: translateY(-3px) scale(1.02); /* ★少し拡大 */
+  box-shadow: 0 4px 16px rgba(61,97,66,0.25); /* ★影を強く */
+  border-color: var(--green-light); /* ★枠線の色を濃く */
+}
+
+.plan-benefits-check {
+  font-size: 18px; /* ★16px→18px（チェックマークを大きく） */
+  font-weight: 700;
+  color: var(--green-mid);
+  flex-shrink: 0;
+  width: 24px; /* ★幅を固定 */
+  height: 24px; /* ★高さを固定 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-pale); /* ★背景を追加 */
+  border-radius: 50%; /* ★丸く */
+  box-shadow: 0 2px 6px rgba(61,97,66,0.15); /* ★影を追加 */
+}
+
+/* 予約完了メッセージ */
+.plan-completion-note {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+/* FAQリンク */
+.faq-link {
+  color: var(--green-accent);
+  text-decoration: underline;
+}
+
+/* LINE特典詳細 */
+.footer-line-benefits {
+  background: var(--green-pale);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 12px;
+}
+
+.footer-line-benefits-label {
+  font-size: 10px;
+  color: var(--green-accent);
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.footer-line-benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-line-benefits-item {
+  font-size: 10px;
+  color: var(--charcoal);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-line-benefits-num {
+  color: var(--green-mid);
+}
+
+/* ============================================
+   OUR SPACES アニメーション
+   ============================================ */
+
+.photo-card {
+  flex-shrink: 0;
+  width: 188px;
+  scroll-snap-align: start;
+  background: var(--white);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border: 1px solid rgba(196,168,130,0.18);
+  
+  /* アニメーション追加 */
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+}
+
+/* スクロールで表示されたら */
+.photo-card.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ホバー時に浮き上がる */
+.photo-card:hover {
+  transform: translateX(0) translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+/* 画像ズームエフェクト */
+.photo-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.photo-card:hover img {
+  transform: scale(1.08);
+}
+
+/* 順番に表示 */
+.photo-cards-scroll .photo-card:nth-child(1) { transition-delay: 0s; }
+.photo-cards-scroll .photo-card:nth-child(2) { transition-delay: 0.1s; }
+.photo-cards-scroll .photo-card:nth-child(3) { transition-delay: 0.2s; }
+.photo-cards-scroll .photo-card:nth-child(4) { transition-delay: 0.3s; }
+.photo-cards-scroll .photo-card:nth-child(5) { transition-delay: 0.4s; }
+
+/* 予約ボタンに追加 */
+@keyframes urgent-pulse {
+  0%, 100% {
+    box-shadow: 0 4px 18px rgba(61,97,66,0.42);
+  }
+  50% {
+    box-shadow: 0 6px 28px rgba(255,224,130,0.6);
+  }
+}
+
+.btn-hero,
+.sticky-tab-primary {
+  animation: urgent-pulse 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* 追加推奨 */
+.hero-logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+}
+
+.campaign-countdown {
+  background: rgba(255,224,130,0.15);
+  border: 1px solid rgba(255,224,130,0.3);
+  border-radius: 8px;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+.campaign-countdown-label {
+  font-size: 16px;
+  color: rgba(241, 29, 29, 0.959);
+  margin-bottom: 3px;
+}
+
+.campaign-countdown-value {
+  font-family: var(--font-en);
+  font-size: 20px;
+  font-weight: 800;
+  color: #d6290a;
+  letter-spacing: 0.08em;
+}
+
+.faq-link {
+  color: var(--green-accent);
+  text-decoration: underline;
 }
