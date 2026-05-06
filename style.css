@@ -27,10 +27,8 @@
   --green-dark:   #253D29;
 
   /* タイポグラフィ */
-<<<<<<< HEAD
 --font-serif-jp: 'Noto Sans JP', sans-serif;
 --font-sans-jp:  'Noto Sans JP', sans-serif;
-=======
 --font-en:       'Lato', sans-serif;
 
   /* スペーシング */
@@ -1441,12 +1439,8 @@ a {
   width: 24px;
   height: 24px;
   display: block;
-<<<<<<< HEAD
   border-radius: 6px; 
   object-fit: cover;
-=======
-  border-radius: 6px; /* 角丸を維持 */
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
 
 .footer-sns-separator {
@@ -1455,16 +1449,6 @@ a {
   opacity: 0.5;
 }
 
-<<<<<<< HEAD
-=======
-.footer-sns-icon {
-  width: 24px;
-  height: 24px;
-  display: block;
-  border-radius: 6px; /* 角丸を維持 */
-}
-
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 
 .footer-divider {
   height: 1px;
@@ -1921,11 +1905,7 @@ a {
   }
 }
 
-<<<<<<< HEAD
 
-=======
-}
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 
 /* ============================================
    RESERVATION FORM
@@ -2167,7 +2147,6 @@ a, button,
    インラインスタイルをクラス化
    ============================================ */
 
-<<<<<<< HEAD
 /* ============================================
    特典ボックス（目立たせる修正版）
    ============================================ */
@@ -2212,21 +2191,10 @@ a, button,
     opacity: 1;
     transform: scale(1);
   }
-=======
-/* プラン特典ボックス */
-.plan-benefits-box {
-  background: var(--green-pale);
-  border: 2px solid var(--green-light);
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  text-align: center;
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
 
 .plan-benefits-label {
   font-family: var(--font-en);
-<<<<<<< HEAD
   font-size: 11px;
   font-weight: 500;
   color: var(--green-accent);
@@ -2235,18 +2203,11 @@ a, button,
   text-transform: uppercase;
   position: relative;
   z-index: 1;
-=======
-  font-size: 10px;
-  color: var(--green-mid);
-  letter-spacing: 0.2em;
-  margin-bottom: 6px;
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
 
 .plan-benefits-title {
   font-family: var(--font-serif-jp);
   font-size: 16px;
-<<<<<<< HEAD
   font-weight: 500;
   color: var(--green-dark);
   line-height: 1.6;
@@ -2260,23 +2221,11 @@ a, button,
   font-weight: 600;
   color: var(--green-accent);
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-=======
-  font-weight: 400;
-  color: var(--green-accent);
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-.plan-benefits-count {
-  font-size: 20px;
-  color: var(--green-dark);
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
 
 .plan-benefits-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-<<<<<<< HEAD
   gap: 12px;
   margin-top: 16px;
   text-align: left;
@@ -2331,23 +2280,6 @@ a, button,
   background: var(--green-pale); /* ★背景を追加 */
   border-radius: 50%; /* ★丸く */
   box-shadow: 0 2px 6px rgba(61,97,66,0.15); /* ★影を追加 */
-=======
-  gap: 8px;
-  margin-top: 12px;
-  text-align: left;
-}
-
-.plan-benefits-item {
-  font-size: 11px;
-  color: var(--charcoal);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.plan-benefits-check {
-  color: var(--green-mid);
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
 
 /* 予約完了メッセージ */
@@ -2487,19 +2419,13 @@ a, button,
 }
 
 .campaign-countdown-label {
-<<<<<<< HEAD
   font-size: 16px;
   color: rgba(241, 29, 29, 0.959);
-=======
-  font-size: 9px;
-  color: rgba(22, 15, 1, 0.884);
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
   margin-bottom: 3px;
 }
 
 .campaign-countdown-value {
   font-family: var(--font-en);
-<<<<<<< HEAD
   font-size: 20px;
   font-weight: 800;
   color: #d6290a;
@@ -2509,10 +2435,4 @@ a, button,
 .faq-link {
   color: var(--green-accent);
   text-decoration: underline;
-=======
-  font-size: 16px;
-  font-weight: 500;
-  color: #FFE082;
-  letter-spacing: 0.08em;
->>>>>>> 546b3ae069b9177157865d213325f9f4578a63c6
 }
