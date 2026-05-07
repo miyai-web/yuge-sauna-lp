@@ -2,14 +2,10 @@
 
 // ===== 1. カウントダウン =====
 function initCountdown() {
-  // 2026年4月30日 23:59:59に終了
   const endDate = new Date('2026-05-30T23:59:59+09:00');
   
   const el = document.getElementById('countdown');
   
-  console.log('カウントダウン開始');
-  console.log('要素:', el);
-  console.log('終了日時:', endDate);
   
   if (!el) {
     console.error('countdown要素が見つかりません');
@@ -258,28 +254,9 @@ function initReservationForm() {
   const form = document.getElementById('reservationForm');
   if (!form) return;
 
-  
-
-  // ★営業時間チェック機能
-  const dateInput = document.getElementById('date');
-  
-  if (dateInput) {
-    dateInput.addEventListener('change', function() {
-      const selectedDate = new Date(this.value);
-      const hours = selectedDate.getHours();
-      
-      if (hours < 7 || hours >= 23) {
-        showError('date', '営業時間は7:00〜23:00です。営業時間内の日時を選択してください。');
-        this.value = '';
-      } else {
-        clearError('date');
-      }
-    });
-  }
-
   const GAS_URL = 'https://script.google.com/macros/s/AKfycbyP35DXfjnKyc21lLg1RU24_oFS579pUqJN3YtcnXjYz9gYNaqHxZcPFwDgL0QFs2ENbw/exec';
 
- const validationRules = {
+  const validationRules = {
     name: {
       required: true,
       minLength: 2,
@@ -350,28 +327,24 @@ function initReservationForm() {
 
       const value = field.value.trim();
 
-      // 必須チェック
       if (rule.required && !value) {
         showError(fieldId, rule.message);
         isValid = false;
         return;
       }
 
-      // 最小文字数チェック
       if (rule.minLength && value && value.length < rule.minLength) {
         showError(fieldId, rule.message);
         isValid = false;
         return;
       }
 
-      // 最大文字数チェック
       if (rule.maxLength && value && value.length > rule.maxLength) {
         showError(fieldId, rule.message);
         isValid = false;
         return;
       }
 
-      // パターンチェック
       if (rule.pattern && value && !rule.pattern.test(value)) {
         showError(fieldId, rule.message);
         isValid = false;
@@ -379,30 +352,14 @@ function initReservationForm() {
       }
     });
 
-    // 営業時間チェック
-    const dateField = document.getElementById('date');
-    if (dateField && dateField.value) {
-      const selectedDate = new Date(dateField.value);
-      const hours = selectedDate.getHours();
-      
-      if (hours < 7 || hours >= 23) {
-        showError('date', '営業時間は7:00〜23:00です。営業時間内の日時を選択してください。');
-        isValid = false;
-      }
-    }
-
     return isValid;
   }
 
   Object.keys(validationRules).forEach(fieldId => {
     const field = document.getElementById(fieldId);
     if (field) {
-      field.addEventListener('input', () => {
-        clearError(fieldId);
-      });
-      field.addEventListener('change', () => {
-        clearError(fieldId);
-      });
+      field.addEventListener('input', () => clearError(fieldId));
+      field.addEventListener('change', () => clearError(fieldId));
     }
   });
 
@@ -423,7 +380,6 @@ function initReservationForm() {
     const success = document.getElementById('formSuccess');
     const error = document.getElementById('formError');
 
-    // 日付と時間を統合
     const reservationDate = document.getElementById('reservation-date');
     const reservationTime = document.getElementById('reservation-time');
     const dateValue = (reservationDate && reservationTime) 
@@ -439,7 +395,6 @@ function initReservationForm() {
       coupon: document.getElementById('coupon').value
     };
     
-    console.log('送信データ:', formData);
 
     submitBtn.disabled = true;
     submitBtn.style.opacity = '0.6';
@@ -457,7 +412,6 @@ function initReservationForm() {
         body: JSON.stringify(formData)
       });
 
-      // no-corsモードでは応答が取得できないため、送信成功と仮定
       success.style.display = 'block';
       form.reset();
       
@@ -468,7 +422,7 @@ function initReservationForm() {
         });
       }
       
-      console.log('送信完了');
+  
       
     } catch (err) {
       error.style.display = 'block';
@@ -484,7 +438,7 @@ function initReservationForm() {
 
 // ===== 初期化 =====
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM読み込み完了');
+  
   
   initCountdown();
   initFaq();
@@ -496,5 +450,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initReservationForm();
   initScrollToForm();
   
-  console.log('全ての初期化完了');
+
 });

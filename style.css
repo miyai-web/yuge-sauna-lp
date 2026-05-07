@@ -2439,3 +2439,10 @@ a, button,
   color: var(--green-accent);
   text-decoration: underline;
 }
+
+/* 日時入力グリッド */
+.date-time-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 8px;
+}
